@@ -32,7 +32,7 @@ LIVE_URL = (
 # Apps Script de cadastro (apps-script/cadastro_motores.gs) implantado como
 # app da Web. Com ?acao=listar devolve a aba MOTORES em JSON. Vazio = ainda
 # não implantado (os motores ficam sem nome/classificação).
-MOTORES_API_URL = ""
+MOTORES_API_URL = "https://script.google.com/macros/s/AKfycby3MJEnS67fpYENzxJ5N2RH5L_qPpNCl65EHUdCTtYVjlO2Wck7H3Cmz9Bm_mBVKsEH/exec?acao=listar"
 
 # Reserva para a aba MOTORES: link "Publicar na Web" SÓ dessa aba, em CSV
 # (pub?gid=<gid da aba MOTORES>&single=true&output=csv). Vazio = sem reserva.

@@ -14,7 +14,7 @@
 // ============================================================================
 // Versão do dashboard. Ao publicar mudanças, atualize aqui E no index.html
 // (?v=... do app.js e do styles.css), para o navegador não usar arquivo em cache.
-const VERSAO = "2026.10.13-1";
+const VERSAO = "2026.10.13-2";
 
 const CONFIG = {
   // Leitura AO VIVO: link "Publicar na Web" da planilha, em CSV (primeira
@@ -27,7 +27,7 @@ const CONFIG = {
   MOTORES_URL: "",
   // URL do app da Web do Apps Script que lê/grava a aba MOTORES
   // (ver apps-script/cadastro_motores.gs). Vazio = formulário desativado.
-  MOTORES_WRITE_URL: "",
+  MOTORES_WRITE_URL: "https://script.google.com/macros/s/AKfycby3MJEnS67fpYENzxJ5N2RH5L_qPpNCl65EHUdCTtYVjlO2Wck7H3Cmz9Bm_mBVKsEH/exec",
   FONTES: {
     "exemplo": { nome: "dados de exemplo (sintéticos)",
       dados: "../data/exemplo/raw_exemplo.tsv", motores: "../data/exemplo/motores_exemplo.tsv" },
