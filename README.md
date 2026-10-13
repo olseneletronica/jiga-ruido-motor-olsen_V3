@@ -64,9 +64,9 @@ Canais: `tensao_v`, `corrente_a`, `potencia_w`, `accel_x_g`, `accel_y_g`,
 - Se uma condição vier em mais de uma linha, os blocos são emendados em
   sequência (ordem da coluna `segundo`, depois ordem de chegada).
 - Números com vírgula decimal (locale BR) são convertidos automaticamente.
-- Amostras com o IMU inteiro zerado, ou com `accel_z_g` < 0,2 g (sem a
-  gravidade), são falha de leitura do sensor: os canais do IMU daquela amostra
-  viram ausentes.
+- Amostras com os 7 canais do IMU exatamente zerados são falha de leitura do
+  sensor: viram ausentes. Z baixo **não** é descartado: com 15 ms, um motor
+  vibrando forte leva o Z de ~0 a ~1,8 g de verdade.
 
 ### Aba MOTORES — qual motor foi testado em cada ensaio
 

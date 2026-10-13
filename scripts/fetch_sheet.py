@@ -32,7 +32,7 @@ import numpy as np
 import pandas as pd
 
 from config import (
-    DATA_DIR, EXEMPLO_MOTORES_TSV, EXEMPLO_TSV, ID_COLUMNS, IMU_COLUMNS, IMU_Z_MIN_G,
+    DATA_DIR, EXEMPLO_MOTORES_TSV, EXEMPLO_TSV, ID_COLUMNS, IMU_COLUMNS,
     LIVE_URL, LONG_COLUMNS, MOTORES_API_URL, MOTORES_PATH, MOTORES_URL,
     PERIODO_AMOSTRA_S, RAW_PATH, SIGNAL_COLUMNS, normaliza_sentido,
 )
@@ -103,8 +103,8 @@ def parse_tabela(texto: str, sep: str) -> pd.DataFrame:
     df["amostra"] = df.groupby(["ensaio", "sentido", "frequencia_hz"]).cumcount() + 1
     df["t_s"] = ((df["amostra"] - 1) * PERIODO_AMOSTRA_S).round(4)
 
-    # IMU zerado (ou eixo Z sem a gravidade) = falha de leitura -> ausente.
-    falha_imu = (df[IMU_COLUMNS] == 0).all(axis=1) | (df["accel_z_g"] < IMU_Z_MIN_G)
+    # IMU inteiro zerado = falha de leitura -> ausente.
+    falha_imu = (df[IMU_COLUMNS] == 0).all(axis=1)
     df.loc[falha_imu, IMU_COLUMNS] = np.nan
     if falha_imu.any():
         print(f"[fetch_sheet] {int(falha_imu.sum())} amostras com falha do IMU tratadas como ausentes")

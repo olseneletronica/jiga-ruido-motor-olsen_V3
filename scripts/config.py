@@ -64,14 +64,15 @@ LONG_COLUMNS = (["timestamp", "timestamp_iso", "firmware", "ensaio", "sentido",
 
 TEXT_COLUMNS = ["timestamp", "firmware", "sentido"]
 
-# Canais do IMU. Amostra com TODOS zerados, ou com o eixo Z abaixo de
-# IMU_Z_MIN_G (sem a gravidade de ~1 g que ele sempre carrega), é falha de
-# leitura do sensor: os 7 canais do IMU daquela amostra viram ausentes.
+# Canais do IMU. Amostra com TODOS os 7 canais exatamente zerados é falha de
+# leitura do sensor: os canais do IMU daquela amostra viram ausentes.
+# (No V2 também se descartava accel_z < 0,2 g, mas com amostras de 15 ms um
+# motor vibrando forte leva o Z legitimamente de ~0 a ~1,8 g — ver ensaio 2
+# de 13/10/2026. Por isso essa regra NÃO é usada no V3.)
 IMU_COLUMNS = [
     "accel_x_g", "accel_y_g", "accel_z_g", "accel_resultante_g",
     "gyro_x_dps", "gyro_y_dps", "gyro_z_dps",
 ]
-IMU_Z_MIN_G = 0.2
 
 # Roteiro: só 15 kHz e 20 kHz, cada uma nos dois sentidos.
 FREQUENCIAS_HZ = [15000, 20000]

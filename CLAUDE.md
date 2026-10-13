@@ -31,8 +31,9 @@ Google Sheets publicado, e pipeline Python. Muda o formato dos dados
   não está no repo).
 - `scripts/config.py` é a fonte única; `CONFIG`/`METRICS` em app.js espelham.
   `normaliza_sentido()` (Py) e `normalizaSentido()` (JS) aceitam as mesmas grafias.
-- Falha do IMU por amostra: todos os 7 canais = 0, ou `accel_z_g` < 0,2 g ->
-  canais do IMU daquela amostra = NaN (`IMU_Z_MIN_G` nos dois lados).
+- Falha do IMU por amostra: só quando os 7 canais = 0 -> NaN. A regra do V2
+  (`accel_z_g` < 0,2 g = falha) foi REMOVIDA: no V3 ela apagava amostras reais
+  do ensaio 2 (13/10), cujo Z oscila de ~0 a 1,8 g por vibração forte.
 - Vibração e giroscópio comparados pelo desvio-padrão (média do acelerômetro
   tem a gravidade). Desvio agora é de 200 amostras rápidas: limites do V2 não
   se aplicam; indicação automática reaprende com os Aprovados (mínimo 5).

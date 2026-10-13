@@ -14,7 +14,7 @@
 // ============================================================================
 // Versão do dashboard. Ao publicar mudanças, atualize aqui E no index.html
 // (?v=... do app.js e do styles.css), para o navegador não usar arquivo em cache.
-const VERSAO = "2026.10.13-2";
+const VERSAO = "2026.10.13-3";
 
 const CONFIG = {
   // Leitura AO VIVO: link "Publicar na Web" da planilha, em CSV (primeira
@@ -49,10 +49,9 @@ const TEXT_COLUMNS = ["timestamp", "firmware", "sentido"];
 
 // stat = estatística usada no resumo e na comparação de sentidos
 // modo = "rel" (diferença %) ou "db" (diferença absoluta em dB)
-// Amostra com o IMU inteiro zerado, ou com o eixo Z abaixo de IMU_Z_MIN_G
-// (sem a gravidade de ~1 g), é falha de leitura do sensor: os canais do IMU
-// daquela amostra viram ausentes para não distorcer a vibração.
-const IMU_Z_MIN_G = 0.2;
+// Amostra com os 7 canais do IMU exatamente zerados é falha de leitura do
+// sensor: viram ausentes. (Não se descarta mais Z baixo: com 15 ms, um motor
+// vibrando forte leva o Z de ~0 a ~1,8 g de verdade.)
 const IMU_KEYS = ["accel_x_g", "accel_y_g", "accel_z_g", "accel_resultante_g", "gyro_x_dps", "gyro_y_dps", "gyro_z_dps"];
 
 const METRICS = [
@@ -199,7 +198,7 @@ function expandeLinhas(parsed, campos) {
       let algum = false;
       METRICS.forEach((m) => { const v = toNumberBR(r[cols[m.key][i]]); o[m.key] = v; if (Number.isFinite(v)) algum = true; });
       if (!algum) continue;               // célula de amostra vazia
-      if (IMU_KEYS.every((k) => o[k] === 0) || o.accel_z_g < IMU_Z_MIN_G) IMU_KEYS.forEach((k) => (o[k] = NaN));
+      if (IMU_KEYS.every((k) => o[k] === 0)) IMU_KEYS.forEach((k) => (o[k] = NaN));
       amostras.push(o);
     }
     blocos.push({ ensaio, sentido, f, bloco: toNumberBR(r.segundo), linha, amostras });
